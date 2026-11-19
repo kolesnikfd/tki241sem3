@@ -15,7 +15,6 @@ using namespace miit::algebra;
 int failed = 0;
 int total = 0;
 
-// Простая проверка: выводит сообщение, если условие ложно
 void check(bool condition, const std::string& name)
 {
 	total++;
@@ -30,13 +29,12 @@ void check(bool condition, const std::string& name)
 	}
 }
 
-// Создать матрицу 3x4 из набора чисел (по строкам)
-Matrix<int> makeMatrix(int rows, int cols, const int* values)
+Matrix<int> makeMatrix(size_t rows, size_t cols, const int* values)
 {
 	Matrix<int> matrix(rows, cols);
-	for (int i = 0; i < rows; i++)
+	for (size_t i = 0; i < rows; i++)
 	{
-		for (int j = 0; j < cols; j++)
+		for (size_t j = 0; j < cols; j++)
 		{
 			matrix[i][j] = values[i * cols + j];
 		}
@@ -112,9 +110,9 @@ void testGenerators()
 	RandomGenerator randomGen(-5, 5);
 	matrix.fill(randomGen);
 	bool inRange = true;
-	for (int i = 0; i < 2; i++)
+	for (size_t i = 0; i < 2; i++)
 	{
-		for (int j = 0; j < 2; j++)
+		for (size_t j = 0; j < 2; j++)
 		{
 			if (matrix[i][j] < -5 || matrix[i][j] > 5)
 			{
@@ -153,9 +151,6 @@ void testTask2()
 {
 	ZeroGenerator generator;
 
-	// Строка 0: 2-й = 9, предпоследний = 3  -> удалить
-	// Строка 1: 2-й = 1, предпоследний = 5  -> оставить
-	// Строка 2: 2-й = 4, предпоследний = 4  -> оставить (не больше)
 	int values[] = { 1, 9, 3, 0,
 	                 2, 1, 5, 0,
 	                 7, 4, 4, 1 };
@@ -167,7 +162,6 @@ void testTask2()
 	check(matrix.getRows() == 2, "Task2: количество оставшихся строк");
 	check(matrix[0][0] == 2 && matrix[1][0] == 7, "Task2: остались нужные строки");
 
-	// Все строки удаляются подряд
 	int values2[] = { 0, 5, 1, 0,
 	                  0, 6, 2, 0 };
 	Matrix<int> matrix2 = makeMatrix(2, 4, values2);
@@ -175,7 +169,6 @@ void testTask2()
 	task2.solve();
 	check(matrix2.getRows() == 0, "Task2: удаление всех строк");
 
-	// Один столбец - ничего не делаем
 	Matrix<int> matrix3(2, 1);
 	Task2 task3(matrix3, generator);
 	task3.solve();

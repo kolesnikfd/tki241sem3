@@ -5,13 +5,13 @@
 namespace miit::algebra
 {
 	/**
-	* @brief генератор нулей
+	* @brief Генератор нулей
 	*/
 	class ZeroGenerator : public ConstGenerator
 	{
 		public:
 			/**
-			* @brief конструктор
+			* @brief Конструктор
 			*/
 			ZeroGenerator();
 	};

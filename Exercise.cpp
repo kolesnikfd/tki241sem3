@@ -1,6 +1,6 @@
 #include "Exercise.h"
 
-miit::algebra::Exercise::Exercise(Matrix<int>& matrix, Generator& generator)
+miit::algebra::Exercise::Exercise(Matrix<int>& matrix, const Generator& generator)
 	: matrix{ matrix }, generator{ generator }
 {
 }

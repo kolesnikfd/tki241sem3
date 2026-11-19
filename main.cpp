@@ -12,6 +12,14 @@
 
 using namespace miit::algebra;
 
+enum class FillMode
+{
+	Random = 1,
+	Keyboard = 2,
+	Zeros = 3,
+	Constant = 4
+};
+
 void printMatrix(const std::string& title, const Matrix<int>& matrix)
 {
 	std::cout << title << std::endl;
@@ -25,38 +33,50 @@ void printMatrix(const std::string& title, const Matrix<int>& matrix)
 	}
 }
 
-std::unique_ptr<Generator> chooseGenerator()
+void printMenu()
 {
 	std::cout << "Как заполнить матрицу?" << std::endl;
-	std::cout << "1 - случайными числами" << std::endl;
-	std::cout << "2 - с клавиатуры" << std::endl;
-	std::cout << "3 - нулями" << std::endl;
-	std::cout << "4 - одним и тем же числом" << std::endl;
+	std::cout << static_cast<int>(FillMode::Random) << " - случайными числами" << std::endl;
+	std::cout << static_cast<int>(FillMode::Keyboard) << " - с клавиатуры" << std::endl;
+	std::cout << static_cast<int>(FillMode::Zeros) << " - нулями" << std::endl;
+	std::cout << static_cast<int>(FillMode::Constant) << " - одним и тем же числом" << std::endl;
+}
+
+std::unique_ptr<Generator> chooseGenerator()
+{
+	printMenu();
 
 	int choice = 0;
 	std::cin >> choice;
 
-	if (choice == 1)
+	switch (static_cast<FillMode>(choice))
 	{
-		int min = 0;
-		int max = 0;
-		std::cout << "Введите границы диапазона (min max): ";
-		std::cin >> min >> max;
-		return std::make_unique<RandomGenerator>(min, max);
+		case FillMode::Random:
+		{
+			int min = 0;
+			int max = 0;
+			std::cout << "Введите границы диапазона (min max): ";
+			std::cin >> min >> max;
+			return std::make_unique<RandomGenerator>(min, max);
+		}
+		case FillMode::Keyboard:
+		{
+			std::cout << "Числа будете вводить по строкам, через пробел или Enter" << std::endl;
+			return std::make_unique<IStreamGenerator>(std::cin);
+		}
+		case FillMode::Constant:
+		{
+			int value = 0;
+			std::cout << "Введите число: ";
+			std::cin >> value;
+			return std::make_unique<ConstGenerator>(value);
+		}
+		case FillMode::Zeros:
+		default:
+		{
+			return std::make_unique<ZeroGenerator>();
+		}
 	}
-	if (choice == 2)
-	{
-		std::cout << "Числа будете вводить по строкам, через пробел или Enter" << std::endl;
-		return std::make_unique<IStreamGenerator>(std::cin);
-	}
-	if (choice == 4)
-	{
-		int value = 0;
-		std::cout << "Введите число: ";
-		std::cin >> value;
-		return std::make_unique<ConstGenerator>(value);
-	}
-	return std::make_unique<ZeroGenerator>();
 }
 
 int main()
@@ -72,7 +92,7 @@ int main()
 		return 1;
 	}
 
-	Matrix<int> matrix(n, m);
+	Matrix<int> matrix(static_cast<size_t>(n), static_cast<size_t>(m));
 	std::unique_ptr<Generator> generator = chooseGenerator();
 
 	Task1 task1(matrix, *generator);

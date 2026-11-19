@@ -6,25 +6,25 @@
 namespace miit::algebra
 {
 	/**
-	* @brief генератор случайных чисел из заданного диапазона
+	* @brief Генератор случайных чисел из заданного диапазона
 	*/
 	class RandomGenerator : public Generator
 	{
 		private:
-			std::uniform_int_distribution<int> distribution;
-			std::mt19937 generator;
+			mutable std::uniform_int_distribution<int> distribution;
+			mutable std::mt19937 generator;
 
 		public:
 			/**
-			* @brief конструктор
-			* @param min нижняя граница диапазона 
-			* @param max верхняя граница диапазона
+			* @brief Конструктор
+			* @param min Нижняя граница диапазона 
+			* @param max Верхняя граница диапазона 
 			*/
 			RandomGenerator(const int min, const int max);
 
 			/**
-			* @brief выдать случайное число из диапазона [min, max]
+			* @brief Выдать случайное число из диапазона [min, max]
 			*/
-			int generate() override;
+			int generate() const override;
 	};
 }

@@ -5,7 +5,7 @@
 namespace miit::algebra
 {
 	/**
-	* @brief генератор который всегда выдаёт одно и то же значение
+	* @brief Генератор, который всегда выдаёт одно и то же значение
 	*/
 	class ConstGenerator : public Generator
 	{
@@ -14,14 +14,14 @@ namespace miit::algebra
 
 		public:
 			/**
-			* @brief конструктор
-			* @param value значение
+			* @brief Конструктор
+			* @param value Значение, которое будет выдаваться всегда
 			*/
 			ConstGenerator(const int value);
 
 			/**
-			* @brief выдать константное значение
+			* @brief Выдать константное значение
 			*/
-			int generate() override;
+			int generate() const override;
 	};
 }

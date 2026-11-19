@@ -6,34 +6,35 @@
 namespace miit::algebra
 {
 	/**
-	* @brief базовый класс задания. агрегирует матрицу и генератор
+	* @brief Базовый класс задания. Агрегирует матрицу и генератор
+	*        Конкретное решение пишется в наследниках в методе solve()
 	*/
 	class Exercise
 	{
 		protected:
 			Matrix<int>& matrix;
-			Generator& generator;
+			const Generator& generator;
 
 		public:
 			/**
-			* @brief конструктор
-			* @param matrix матрица с которой работает задание
-			* @param generator генератор которым заполняется матрица
+			* @brief Конструктор
+			* @param matrix Матрица, с которой работает задание
+			* @param generator Генератор, которым заполняется матрица
 			*/
-			Exercise(Matrix<int>& matrix, Generator& generator);
+			Exercise(Matrix<int>& matrix, const Generator& generator);
 
 			/**
-			* @brief виртуальный деструктор
+			* @brief Виртуальный деструктор
 			*/
 			virtual ~Exercise();
 
 			/**
-			* @brief заполнить матрицу числами из генератора
+			* @brief Заполнить матрицу числами из генератора
 			*/
 			void fillMatrix();
 
 			/**
-			* @brief выполнить задание
+			* @brief Выполнить задание
 			*/
 			virtual void solve() = 0;
 	};

@@ -5,19 +5,18 @@
 namespace miit::algebra
 {
 	/**
-	* @brief задание 1: заменить нулём элементы,
-	*        кратные трём, в каждом столбце матрицы
+	* @brief Задание 1 
 	*/
 	class Task1 : public Exercise
 	{
 		public:
 			/**
-			* @brief конструктор
+			* @brief Конструктор
 			*/
-			Task1(Matrix<int>& matrix, Generator& generator);
+			Task1(Matrix<int>& matrix, const Generator& generator);
 
 			/**
-			* @brief выполнить задание
+			* @brief Выполнить задание
 			*/
 			void solve() override;
 	};

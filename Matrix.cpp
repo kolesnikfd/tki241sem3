@@ -10,7 +10,7 @@ miit::algebra::Matrix<T>::Matrix()
 }
 
 template <typename T>
-miit::algebra::Matrix<T>::Matrix(const int rows, const int cols)
+miit::algebra::Matrix<T>::Matrix(const size_t rows, const size_t cols)
 	: data(rows, std::vector<T>(cols))
 {
 }
@@ -53,13 +53,13 @@ miit::algebra::Matrix<T>& miit::algebra::Matrix<T>::operator=(Matrix&& other) no
 }
 
 template <typename T>
-int miit::algebra::Matrix<T>::getRows() const
+size_t miit::algebra::Matrix<T>::getRows() const
 {
-	return static_cast<int>(this->data.size());
+	return this->data.size();
 }
 
 template <typename T>
-int miit::algebra::Matrix<T>::getCols() const
+size_t miit::algebra::Matrix<T>::getCols() const
 {
 	if (this->data.empty())
 	{
@@ -69,23 +69,23 @@ int miit::algebra::Matrix<T>::getCols() const
 }
 
 template <typename T>
-std::vector<T>& miit::algebra::Matrix<T>::operator[](const int row)
+std::vector<T>& miit::algebra::Matrix<T>::operator[](const size_t row)
 {
 	return this->data.at(row);
 }
 
 template <typename T>
-const std::vector<T>& miit::algebra::Matrix<T>::operator[](const int row) const
+const std::vector<T>& miit::algebra::Matrix<T>::operator[](const size_t row) const
 {
 	return this->data.at(row);
 }
 
 template <typename T>
-void miit::algebra::Matrix<T>::fill(Generator& generator)
+void miit::algebra::Matrix<T>::fill(const Generator& generator)
 {
-	for (int i = 0; i < this->getRows(); i++)
+	for (size_t i = 0; i < this->getRows(); i++)
 	{
-		for (int j = 0; j < this->getCols(); j++)
+		for (size_t j = 0; j < this->getCols(); j++)
 		{
 			this->data[i][j] = static_cast<T>(generator.generate());
 		}
@@ -93,9 +93,9 @@ void miit::algebra::Matrix<T>::fill(Generator& generator)
 }
 
 template <typename T>
-void miit::algebra::Matrix<T>::removeRow(const int row)
+void miit::algebra::Matrix<T>::removeRow(const size_t row)
 {
-	if (row < 0 || row >= this->getRows())
+	if (row >= this->getRows())
 	{
 		throw std::out_of_range("Matrix::removeRow: неверный номер строки");
 	}
@@ -106,9 +106,9 @@ template <typename T>
 std::string miit::algebra::Matrix<T>::toString() const
 {
 	std::string result;
-	for (int i = 0; i < this->getRows(); i++)
+	for (size_t i = 0; i < this->getRows(); i++)
 	{
-		for (int j = 0; j < this->getCols(); j++)
+		for (size_t j = 0; j < this->getCols(); j++)
 		{
 			result += std::to_string(this->data[i][j]);
 			result += "\t";
@@ -128,9 +128,9 @@ std::ostream& miit::algebra::operator<<(std::ostream& out, const Matrix<T>& matr
 template <typename T>
 std::istream& miit::algebra::operator>>(std::istream& in, Matrix<T>& matrix)
 {
-	for (int i = 0; i < matrix.getRows(); i++)
+	for (size_t i = 0; i < matrix.getRows(); i++)
 	{
-		for (int j = 0; j < matrix.getCols(); j++)
+		for (size_t j = 0; j < matrix.getCols(); j++)
 		{
 			in >> matrix[i][j];
 		}

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Generator.h"
+#include <cstddef>
 #include <istream>
 #include <ostream>
 #include <string>
@@ -9,9 +10,9 @@
 namespace miit::algebra
 {
 	/**
-	* @brief шаблонный класс двумерного массива
-	*        данные хранятся в vector из строк
-	*        класс не работает с вводом-выводом напрямую для вывода есть toString()
+	* @brief Шаблонный класс двумерного массива
+	*        Данные хранятся в vector из строк 
+	*        Класс не работает с вводом-выводом напрямую: для вывода есть toString()
 	* @tparam T Тип элементов
 	*/
 	template <typename T>
@@ -22,94 +23,92 @@ namespace miit::algebra
 
 		public:
 			/**
-			* @brief конструктор по умолчанию
+			* @brief Конструктор по умолчанию
 			*/
 			Matrix();
 
 			/**
-			* @brief конструктор матрицы заданного размера
-			* @param rows количество строк
-			* @param cols количество столбцов
+			* @brief Конструктор матрицы заданного размера 
+			* @param rows Количество строк
+			* @param cols Количество столбцов
 			*/
-			Matrix(const int rows, const int cols);
+			Matrix(const size_t rows, const size_t cols);
 
 			/**
-			* @brief конструктор копирования
+			* @brief Конструктор копирования
 			*/
 			Matrix(const Matrix& other);
 
 			/**
-			* @brief конструктор перемещения
+			* @brief Конструктор перемещения
 			*/
 			Matrix(Matrix&& other) noexcept;
 
 			/**
-			* @brief деструктор
+			* @brief Деструктор
 			*/
 			~Matrix();
 
 			/**
-			* @brief оператор копирующего присваивания
+			* @brief Оператор копирующего присваивания
 			*/
 			Matrix& operator=(const Matrix& other);
 
 			/**
-			* @brief оператор перемещающего присваивания
+			* @brief Оператор перемещающего присваивания
 			*/
 			Matrix& operator=(Matrix&& other) noexcept;
 
 			/**
-			* @brief количество строк
+			* @brief Количество строк
 			*/
-			int getRows() const;
+			size_t getRows() const;
 
 			/**
-			* @brief количество столбцов
+			* @brief Количество столбцов
 			*/
-			int getCols() const;
+			size_t getCols() const;
 
 			/**
-			* @brief доступ к строке по индексу
-			*        при неверном индексе бросает std::out_of_range
+			* @brief Доступ к строке по индексу
+			*        При неверном индексе бросает std::out_of_range
 			*/
-			std::vector<T>& operator[](const int row);
+			std::vector<T>& operator[](const size_t row);
 
 			/**
-			* @brief доступ к строке по индексу для константной матрицы
+			* @brief Доступ к строке по индексу для константной матрицы
 			*/
-			const std::vector<T>& operator[](const int row) const;
+			const std::vector<T>& operator[](const size_t row) const;
 
 			/**
 			* @brief Заполнить матрицу числами из генератора
-			* @param generator генератор выдающий числа.
+			* @param generator Генератор, выдающий числа
 			*/
-			void fill(Generator& generator);
+			void fill(const Generator& generator);
 
 			/**
-			* @brief удалить строку по индексу
+			* @brief Удалить строку по индексу
 			*/
-			void removeRow(const int row);
+			void removeRow(const size_t row);
 
 			/**
-			* @brief представить матрицу в виде строки
+			* @brief Представить матрицу в виде строки
 			*/
 			std::string toString() const;
 	};
 
 	/**
-	* @brief оператор сдвига влево: вывод матрицы в выходной поток
+	* @brief Оператор сдвига влево: вывод матрицы в выходной поток
 	*/
 	template <typename T>
 	std::ostream& operator<<(std::ostream& out, const Matrix<T>& matrix);
 
 	/**
-	* @brief оператор сдвига вправо: чтение элементов матрицы из входного потока
-	*        размер матрицы должен быть задан заранее
+	* @brief Оператор сдвига вправо: чтение элементов матрицы из входного потока
+	*        Размер матрицы должен быть задан заранее
 	*/
 	template <typename T>
 	std::istream& operator>>(std::istream& in, Matrix<T>& matrix);
 }
 
-// Реализация шаблона должна быть видна компилятору вместе с объявлением,
-// поэтому файл Matrix.cpp подключается в конце заголовка
 #include "Matrix.cpp"

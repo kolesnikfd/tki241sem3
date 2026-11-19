@@ -5,19 +5,18 @@
 namespace miit::algebra
 {
 	/**
-	* @brief задание 2: удалить все строки в которых
-	*        второй элемент больше предпоследнего
+	* @brief Задание 2
 	*/
 	class Task2 : public Exercise
 	{
 		public:
 			/**
-			* @brief конструктор
+			* @brief Конструктор
 			*/
-			Task2(Matrix<int>& matrix, Generator& generator);
+			Task2(Matrix<int>& matrix, const Generator& generator);
 
 			/**
-			* @brief выполнить задание
+			* @brief Выполнить задание
 			*/
 			void solve() override;
 	};

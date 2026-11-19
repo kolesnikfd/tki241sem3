@@ -6,7 +6,7 @@
 namespace miit::algebra
 {
 	/**
-	* @brief генератор который читает числа из входного потока
+	* @brief Генератор, который читает числа из входного потока
 	*/
 	class IStreamGenerator : public Generator
 	{
@@ -15,14 +15,14 @@ namespace miit::algebra
 
 		public:
 			/**
-			* @brief конструктор.
-			* @param in входной поток
+			* @brief Конструктор
+			* @param in Входной поток
 			*/
 			IStreamGenerator(std::istream& in = std::cin);
 
 			/**
-			* @brief прочитать очередное число из потока
+			* @brief Прочитать очередное число из потока
 			*/
-			int generate() override;
+			int generate() const override;
 	};
 }
